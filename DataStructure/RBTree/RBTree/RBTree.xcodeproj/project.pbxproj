@@ -7,16 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C1C08A22770C2CA005566EF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C08A12770C2CA005566EF /* main.cpp */; };
-		0C1C08AB2770C31D005566EF /* Entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C08A92770C31D005566EF /* Entry.cpp */; };
-		0C1C08B02770CD91005566EF /* BinNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C08AE2770CD91005566EF /* BinNode.cpp */; };
-		0C1C08B52770D64B005566EF /* BinTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C08B32770D64B005566EF /* BinTree.cpp */; };
-		0C587B932773BC2B00752B2B /* ADTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C587B912773BC2B00752B2B /* ADTObject.cpp */; };
-		0C9FA48C2772552100D5734D /* BinSerarchTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C9FA48A2772552100D5734D /* BinSerarchTree.cpp */; };
+		0C62244C2778DA4C007759E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C62244B2778DA4C007759E5 /* main.cpp */; };
+		0C6224582778E37A007759E5 /* RBTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C6224562778E37A007759E5 /* RBTree.cpp */; };
+		0C62245C2778E499007759E5 /* RBTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C62245A2778E499007759E5 /* RBTNode.cpp */; };
+		0C6224622778EA79007759E5 /* Entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C6224612778EA79007759E5 /* Entry.cpp */; };
+		0C6224672778F463007759E5 /* ADTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C6224652778F463007759E5 /* ADTObject.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0C1C089C2770C2CA005566EF /* CopyFiles */ = {
+		0C6224462778DA4C007759E5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -28,22 +27,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0C1C089E2770C2CA005566EF /* BinarySearchTree */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BinarySearchTree; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C1C08A12770C2CA005566EF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		0C1C08A92770C31D005566EF /* Entry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entry.cpp; sourceTree = "<group>"; };
-		0C1C08AA2770C31D005566EF /* Entry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entry.hpp; sourceTree = "<group>"; };
-		0C1C08AE2770CD91005566EF /* BinNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BinNode.cpp; sourceTree = "<group>"; };
-		0C1C08AF2770CD91005566EF /* BinNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BinNode.hpp; sourceTree = "<group>"; };
-		0C1C08B32770D64B005566EF /* BinTree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BinTree.cpp; sourceTree = "<group>"; };
-		0C1C08B42770D64B005566EF /* BinTree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BinTree.hpp; sourceTree = "<group>"; };
-		0C587B912773BC2B00752B2B /* ADTObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ADTObject.cpp; sourceTree = "<group>"; };
-		0C587B922773BC2B00752B2B /* ADTObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ADTObject.hpp; sourceTree = "<group>"; };
-		0C9FA48A2772552100D5734D /* BinSerarchTree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BinSerarchTree.cpp; sourceTree = "<group>"; };
-		0C9FA48B2772552100D5734D /* BinSerarchTree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BinSerarchTree.hpp; sourceTree = "<group>"; };
+		0C6224482778DA4C007759E5 /* RBTree */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RBTree; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C62244B2778DA4C007759E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0C6224562778E37A007759E5 /* RBTree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RBTree.cpp; sourceTree = "<group>"; };
+		0C6224572778E37A007759E5 /* RBTree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RBTree.hpp; sourceTree = "<group>"; };
+		0C62245A2778E499007759E5 /* RBTNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RBTNode.cpp; sourceTree = "<group>"; };
+		0C62245B2778E499007759E5 /* RBTNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RBTNode.hpp; sourceTree = "<group>"; };
+		0C6224602778EA79007759E5 /* Entry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Entry.hpp; sourceTree = "<group>"; };
+		0C6224612778EA79007759E5 /* Entry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entry.cpp; sourceTree = "<group>"; };
+		0C6224652778F463007759E5 /* ADTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADTObject.cpp; sourceTree = "<group>"; };
+		0C6224662778F463007759E5 /* ADTObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ADTObject.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0C1C089B2770C2CA005566EF /* Frameworks */ = {
+		0C6224452778DA4C007759E5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -53,74 +50,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C1C08952770C2CA005566EF = {
+		0C62243F2778DA4C007759E5 = {
 			isa = PBXGroup;
 			children = (
-				0C1C08A02770C2CA005566EF /* BinarySearchTree */,
-				0C1C089F2770C2CA005566EF /* Products */,
+				0C62244A2778DA4C007759E5 /* RBTree */,
+				0C6224492778DA4C007759E5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		0C1C089F2770C2CA005566EF /* Products */ = {
+		0C6224492778DA4C007759E5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0C1C089E2770C2CA005566EF /* BinarySearchTree */,
+				0C6224482778DA4C007759E5 /* RBTree */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0C1C08A02770C2CA005566EF /* BinarySearchTree */ = {
+		0C62244A2778DA4C007759E5 /* RBTree */ = {
 			isa = PBXGroup;
 			children = (
-				0C1C08A12770C2CA005566EF /* main.cpp */,
-				0C9FA48B2772552100D5734D /* BinSerarchTree.hpp */,
-				0C9FA48A2772552100D5734D /* BinSerarchTree.cpp */,
-				0C1C08B42770D64B005566EF /* BinTree.hpp */,
-				0C1C08B32770D64B005566EF /* BinTree.cpp */,
-				0C1C08AF2770CD91005566EF /* BinNode.hpp */,
-				0C1C08AE2770CD91005566EF /* BinNode.cpp */,
-				0C1C08AA2770C31D005566EF /* Entry.hpp */,
-				0C1C08A92770C31D005566EF /* Entry.cpp */,
-				0C587B922773BC2B00752B2B /* ADTObject.hpp */,
-				0C587B912773BC2B00752B2B /* ADTObject.cpp */,
+				0C62244B2778DA4C007759E5 /* main.cpp */,
+				0C6224572778E37A007759E5 /* RBTree.hpp */,
+				0C6224562778E37A007759E5 /* RBTree.cpp */,
+				0C62245B2778E499007759E5 /* RBTNode.hpp */,
+				0C62245A2778E499007759E5 /* RBTNode.cpp */,
+				0C6224602778EA79007759E5 /* Entry.hpp */,
+				0C6224612778EA79007759E5 /* Entry.cpp */,
+				0C6224652778F463007759E5 /* ADTObject.cpp */,
+				0C6224662778F463007759E5 /* ADTObject.hpp */,
 			);
-			path = BinarySearchTree;
+			path = RBTree;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0C1C089D2770C2CA005566EF /* BinarySearchTree */ = {
+		0C6224472778DA4C007759E5 /* RBTree */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0C1C08A52770C2CA005566EF /* Build configuration list for PBXNativeTarget "BinarySearchTree" */;
+			buildConfigurationList = 0C62244F2778DA4C007759E5 /* Build configuration list for PBXNativeTarget "RBTree" */;
 			buildPhases = (
-				0C1C089A2770C2CA005566EF /* Sources */,
-				0C1C089B2770C2CA005566EF /* Frameworks */,
-				0C1C089C2770C2CA005566EF /* CopyFiles */,
+				0C6224442778DA4C007759E5 /* Sources */,
+				0C6224452778DA4C007759E5 /* Frameworks */,
+				0C6224462778DA4C007759E5 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = BinarySearchTree;
-			productName = BinarySearchTree;
-			productReference = 0C1C089E2770C2CA005566EF /* BinarySearchTree */;
+			name = RBTree;
+			productName = RBTree;
+			productReference = 0C6224482778DA4C007759E5 /* RBTree */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		0C1C08962770C2CA005566EF /* Project object */ = {
+		0C6224402778DA4C007759E5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1230;
 				TargetAttributes = {
-					0C1C089D2770C2CA005566EF = {
+					0C6224472778DA4C007759E5 = {
 						CreatedOnToolsVersion = 12.3;
 					};
 				};
 			};
-			buildConfigurationList = 0C1C08992770C2CA005566EF /* Build configuration list for PBXProject "BinarySearchTree" */;
+			buildConfigurationList = 0C6224432778DA4C007759E5 /* Build configuration list for PBXProject "RBTree" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -128,34 +123,33 @@
 				en,
 				Base,
 			);
-			mainGroup = 0C1C08952770C2CA005566EF;
-			productRefGroup = 0C1C089F2770C2CA005566EF /* Products */;
+			mainGroup = 0C62243F2778DA4C007759E5;
+			productRefGroup = 0C6224492778DA4C007759E5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0C1C089D2770C2CA005566EF /* BinarySearchTree */,
+				0C6224472778DA4C007759E5 /* RBTree */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0C1C089A2770C2CA005566EF /* Sources */ = {
+		0C6224442778DA4C007759E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C587B932773BC2B00752B2B /* ADTObject.cpp in Sources */,
-				0C9FA48C2772552100D5734D /* BinSerarchTree.cpp in Sources */,
-				0C1C08B02770CD91005566EF /* BinNode.cpp in Sources */,
-				0C1C08B52770D64B005566EF /* BinTree.cpp in Sources */,
-				0C1C08AB2770C31D005566EF /* Entry.cpp in Sources */,
-				0C1C08A22770C2CA005566EF /* main.cpp in Sources */,
+				0C6224622778EA79007759E5 /* Entry.cpp in Sources */,
+				0C62244C2778DA4C007759E5 /* main.cpp in Sources */,
+				0C6224582778E37A007759E5 /* RBTree.cpp in Sources */,
+				0C62245C2778E499007759E5 /* RBTNode.cpp in Sources */,
+				0C6224672778F463007759E5 /* ADTObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		0C1C08A32770C2CA005566EF /* Debug */ = {
+		0C62244D2778DA4C007759E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -214,7 +208,7 @@
 			};
 			name = Debug;
 		};
-		0C1C08A42770C2CA005566EF /* Release */ = {
+		0C62244E2778DA4C007759E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -266,7 +260,7 @@
 			};
 			name = Release;
 		};
-		0C1C08A62770C2CA005566EF /* Debug */ = {
+		0C6224502778DA4C007759E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -276,7 +270,7 @@
 			};
 			name = Debug;
 		};
-		0C1C08A72770C2CA005566EF /* Release */ = {
+		0C6224512778DA4C007759E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -289,25 +283,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0C1C08992770C2CA005566EF /* Build configuration list for PBXProject "BinarySearchTree" */ = {
+		0C6224432778DA4C007759E5 /* Build configuration list for PBXProject "RBTree" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0C1C08A32770C2CA005566EF /* Debug */,
-				0C1C08A42770C2CA005566EF /* Release */,
+				0C62244D2778DA4C007759E5 /* Debug */,
+				0C62244E2778DA4C007759E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0C1C08A52770C2CA005566EF /* Build configuration list for PBXNativeTarget "BinarySearchTree" */ = {
+		0C62244F2778DA4C007759E5 /* Build configuration list for PBXNativeTarget "RBTree" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0C1C08A62770C2CA005566EF /* Debug */,
-				0C1C08A72770C2CA005566EF /* Release */,
+				0C6224502778DA4C007759E5 /* Debug */,
+				0C6224512778DA4C007759E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0C1C08962770C2CA005566EF /* Project object */;
+	rootObject = 0C6224402778DA4C007759E5 /* Project object */;
 }
