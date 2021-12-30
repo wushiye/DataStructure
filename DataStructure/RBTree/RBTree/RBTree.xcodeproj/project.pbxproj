@@ -12,6 +12,8 @@
 		0C62245C2778E499007759E5 /* RBTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C62245A2778E499007759E5 /* RBTNode.cpp */; };
 		0C6224622778EA79007759E5 /* Entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C6224612778EA79007759E5 /* Entry.cpp */; };
 		0C6224672778F463007759E5 /* ADTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C6224652778F463007759E5 /* ADTObject.cpp */; };
+		0C89C75B277A00EC0001F229 /* ListStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C89C759277A00EC0001F229 /* ListStack.cpp */; };
+		0C89C762277A310E0001F229 /* ListQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C89C760277A310E0001F229 /* ListQueue.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +39,10 @@
 		0C6224612778EA79007759E5 /* Entry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entry.cpp; sourceTree = "<group>"; };
 		0C6224652778F463007759E5 /* ADTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADTObject.cpp; sourceTree = "<group>"; };
 		0C6224662778F463007759E5 /* ADTObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ADTObject.hpp; sourceTree = "<group>"; };
+		0C89C759277A00EC0001F229 /* ListStack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ListStack.cpp; sourceTree = "<group>"; };
+		0C89C75A277A00EC0001F229 /* ListStack.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ListStack.hpp; sourceTree = "<group>"; };
+		0C89C760277A310E0001F229 /* ListQueue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ListQueue.cpp; sourceTree = "<group>"; };
+		0C89C761277A310E0001F229 /* ListQueue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ListQueue.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,8 @@
 		0C62244A2778DA4C007759E5 /* RBTree */ = {
 			isa = PBXGroup;
 			children = (
+				0C89C75F277A30F80001F229 /* ListQueue */,
+				0C89C75D277A00F50001F229 /* ListStack */,
 				0C62244B2778DA4C007759E5 /* main.cpp */,
 				0C6224572778E37A007759E5 /* RBTree.hpp */,
 				0C6224562778E37A007759E5 /* RBTree.cpp */,
@@ -76,10 +84,28 @@
 				0C62245A2778E499007759E5 /* RBTNode.cpp */,
 				0C6224602778EA79007759E5 /* Entry.hpp */,
 				0C6224612778EA79007759E5 /* Entry.cpp */,
-				0C6224652778F463007759E5 /* ADTObject.cpp */,
 				0C6224662778F463007759E5 /* ADTObject.hpp */,
+				0C6224652778F463007759E5 /* ADTObject.cpp */,
 			);
 			path = RBTree;
+			sourceTree = "<group>";
+		};
+		0C89C75D277A00F50001F229 /* ListStack */ = {
+			isa = PBXGroup;
+			children = (
+				0C89C75A277A00EC0001F229 /* ListStack.hpp */,
+				0C89C759277A00EC0001F229 /* ListStack.cpp */,
+			);
+			path = ListStack;
+			sourceTree = "<group>";
+		};
+		0C89C75F277A30F80001F229 /* ListQueue */ = {
+			isa = PBXGroup;
+			children = (
+				0C89C761277A310E0001F229 /* ListQueue.hpp */,
+				0C89C760277A310E0001F229 /* ListQueue.cpp */,
+			);
+			path = ListQueue;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,8 +166,10 @@
 			files = (
 				0C6224622778EA79007759E5 /* Entry.cpp in Sources */,
 				0C62244C2778DA4C007759E5 /* main.cpp in Sources */,
+				0C89C762277A310E0001F229 /* ListQueue.cpp in Sources */,
 				0C6224582778E37A007759E5 /* RBTree.cpp in Sources */,
 				0C62245C2778E499007759E5 /* RBTNode.cpp in Sources */,
+				0C89C75B277A00EC0001F229 /* ListStack.cpp in Sources */,
 				0C6224672778F463007759E5 /* ADTObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

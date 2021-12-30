@@ -24,8 +24,6 @@ public:
     bool operator >(Entry<K, V> const &e);
     
     bool operator ==(Entry<K, V> const &e);
-    
-    bool operator !=(Entry<K, V> const &e);
 };
 
 template <class K, class V>
@@ -46,22 +44,17 @@ bool Entry<K, V>::operator =(Entry<K, V> const &e) {
 
 template <class K, class V>
 bool Entry<K, V>::operator <(Entry<K, V> const &e) {
-    return key < e.key;
+    return *key < *e.key;
 }
 
 template <class K, class V>
 bool Entry<K, V>::operator >(Entry<K, V> const &e) {
-    return key > e.key;
+    return *key > *e.key;
 }
 
 template <class K, class V>
 bool Entry<K, V>::operator ==(Entry<K, V> const &e) {
-    return key == e.key;
-}
-
-template <class K, class V>
-bool Entry<K, V>::operator !=(Entry<K, V> const &e) {
-    return key != e.key;
+    return *key == *e.key;
 }
 
 #endif /* Entry_hpp */
