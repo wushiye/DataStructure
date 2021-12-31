@@ -8,6 +8,7 @@
 #ifndef Hashtable_hpp
 #define Hashtable_hpp
 
+#include "Linklist.hpp"
 
 
 

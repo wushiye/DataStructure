@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0C25580A277F011E007DBFD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C255809277F011E007DBFD9 /* main.cpp */; };
+		0C5D8E25277F466500A54E25 /* ADTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5D8E23277F466500A54E25 /* ADTObject.cpp */; };
+		0C5D8E26277F466500A54E25 /* Entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5D8E24277F466500A54E25 /* Entry.cpp */; };
 		0C917218277F0967009ED8F9 /* Hashtable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C917216277F0967009ED8F9 /* Hashtable.cpp */; };
 		0C917223277F1AA4009ED8F9 /* Linklist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C917221277F1AA4009ED8F9 /* Linklist.cpp */; };
 		0C917227277F1C77009ED8F9 /* LNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C917225277F1C77009ED8F9 /* LNode.cpp */; };
@@ -28,6 +30,10 @@
 /* Begin PBXFileReference section */
 		0C255806277F011E007DBFD9 /* Hashtable */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Hashtable; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C255809277F011E007DBFD9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0C5D8E21277F466500A54E25 /* ADTObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ADTObject.hpp; sourceTree = "<group>"; };
+		0C5D8E22277F466500A54E25 /* Entry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Entry.hpp; sourceTree = "<group>"; };
+		0C5D8E23277F466500A54E25 /* ADTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADTObject.cpp; sourceTree = "<group>"; };
+		0C5D8E24277F466500A54E25 /* Entry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entry.cpp; sourceTree = "<group>"; };
 		0C917216277F0967009ED8F9 /* Hashtable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Hashtable.cpp; sourceTree = "<group>"; };
 		0C917217277F0967009ED8F9 /* Hashtable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Hashtable.hpp; sourceTree = "<group>"; };
 		0C91721C277F0F05009ED8F9 /* Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hash.h; sourceTree = "<group>"; };
@@ -70,11 +76,15 @@
 				0C255809277F011E007DBFD9 /* main.cpp */,
 				0C917217277F0967009ED8F9 /* Hashtable.hpp */,
 				0C917216277F0967009ED8F9 /* Hashtable.cpp */,
+				0C91721C277F0F05009ED8F9 /* Hash.h */,
 				0C917222277F1AA4009ED8F9 /* Linklist.hpp */,
 				0C917221277F1AA4009ED8F9 /* Linklist.cpp */,
 				0C917226277F1C77009ED8F9 /* LNode.hpp */,
 				0C917225277F1C77009ED8F9 /* LNode.cpp */,
-				0C91721C277F0F05009ED8F9 /* Hash.h */,
+				0C5D8E22277F466500A54E25 /* Entry.hpp */,
+				0C5D8E24277F466500A54E25 /* Entry.cpp */,
+				0C5D8E21277F466500A54E25 /* ADTObject.hpp */,
+				0C5D8E23277F466500A54E25 /* ADTObject.cpp */,
 			);
 			path = Hashtable;
 			sourceTree = "<group>";
@@ -135,10 +145,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C5D8E26277F466500A54E25 /* Entry.cpp in Sources */,
 				0C917227277F1C77009ED8F9 /* LNode.cpp in Sources */,
 				0C917223277F1AA4009ED8F9 /* Linklist.cpp in Sources */,
 				0C917218277F0967009ED8F9 /* Hashtable.cpp in Sources */,
 				0C25580A277F011E007DBFD9 /* main.cpp in Sources */,
+				0C5D8E25277F466500A54E25 /* ADTObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Hash.h"
 #include "Hashtable.hpp"
+#include <list>
 
 using std::cout;
 
@@ -22,28 +23,28 @@ int main(int argc, const char * argv[]) {
 //    const std::string *keyp = new std::string("key");
     {
         std::string key("foqe");
-        std::cout << (hashKey(key) & 9) << '\n';
+        std::cout << (HashKey(key) & 9) << '\n';
     }
     {
         std::string key("arin3");
-        std::cout << (hashKey(key) & 9) << '\n';
+        std::cout << (HashKey(key) & 9) << '\n';
     }
     {
         std::string key("bkjfa2");
-        std::cout << (hashKey(key) & 9) << '\n';
+        std::cout << (HashKey(key) & 9) << '\n';
     }
     {
         std::string key("cfief");
-        std::cout << hashKey(key) % 10 << '\n';
+        std::cout << HashKey(key) % 10 << '\n';
     }
     
     {
         std::string key("dueol1");
-        std::cout << hashKey(key) % 10 << '\n';
+        std::cout << HashKey(key) % 10 << '\n';
     }
     {
         std::string key("etrfnm");
-        std::cout << hashKey(key) % 10 << '\n';
+        std::cout << HashKey(key) % 10 << '\n';
     }
     
     std::cout << "\n\n";
