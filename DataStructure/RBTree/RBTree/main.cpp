@@ -14,11 +14,12 @@
 #include "ADTObject.hpp"
 
 void testRedBlackBST() {
-    
+    // RBT理论引用： https://www.jianshu.com/p/e136ec79235c
 //    RBTree<RBTNode<Entry<std::size_t *, ADTObject *>*> *> *tree = new RBTree<RBTNode<Entry<std::size_t *, ADTObject *> *> *>();
     
 //    RBTree<Entry<std::size_t *, ADTObject *> *> *tree = new RBTree<Entry<std::size_t *, ADTObject *> *>();
     RBTree<Entry<std::size_t *, ADTObject *> *> *tree = new RBTree<Entry<std::size_t *, ADTObject *> *>();
+    
     /*
     {
         ADTObject *obj = new ADTObject();
@@ -256,7 +257,7 @@ void testRedBlackBST() {
         }
         std::cout << "\n\n";
     }
-    /*
+    
     {
         std::cout << "前序遍历(DLR)：遍历的树中的每个结点并存放到数组" << "\n";
         unsigned long n = tree->getSize();
@@ -292,7 +293,7 @@ void testRedBlackBST() {
         }
         std::cout << "\n\n";
     }
-    */
+    
 /*
     {
         
@@ -346,7 +347,7 @@ void testRedBlackBST() {
     }
     std::cout << "\n\n";
 */
-
+    delete tree;
 }
 
 void test2() {

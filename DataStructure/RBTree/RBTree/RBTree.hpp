@@ -15,24 +15,31 @@
 template <class T>
 class RBTree {
 public:
-
     T find(T entry);
+    
+    T insert(T entry);
+    
+    bool remove(T entry);
+    
+    ~RBTree();
+    
+    RBTNode<T> * removeAt(RBTNode<T> *& tr, RBTNode<T> *node);
+    void deleteIn(RBTNode<T> *& tr);
+    RBTNode<T> *& deleteAt(RBTNode<T> *& tr);
+    
+    RBTNode<T> * insertIn(RBTNode<T> *node);
+    
     RBTNode<T> * findIn(RBTNode<T> *t, RBTNode<T> *node);
     
     RBTNode<T> *& search(RBTNode<T> *node);
-    RBTNode<T> *& search(RBTNode<T> *& t, RBTNode<T> *node);
+    RBTNode<T> *& search(RBTNode<T> *& tr, RBTNode<T> *node);
     RBTNode<T> *& searchIn(RBTNode<T> *& t, RBTNode<T> *& pre, RBTNode<T> *node);
     
-    T insert(T entry);
-    RBTNode<T> * insertIn(RBTNode<T> *node);
-    /** 双红修正 */
-    void doubleRedCorrection(RBTNode<T> *&t, RBTNode<T> *&pre);
-    
     RBTNode<T> *& searchMax();
-    RBTNode<T> *& searchMaxIn(RBTNode<T> *& t);
+    RBTNode<T> *& searchMaxIn(RBTNode<T> *& tr);
     
     RBTNode<T> *& searchMin();
-    RBTNode<T> *& searchMinIn(RBTNode<T> *& t);
+    RBTNode<T> *& searchMinIn(RBTNode<T> *& tr);
     
     /** 顺序查询链：将从根到叶子节点的查询路径，按顺序存放到数组*/
     void orderQueryChain(RBTNode<T> *node, RBTNode<T> *nodes[], unsigned long &n);
@@ -47,11 +54,11 @@ public:
     
     /** 递归后序遍历，移除该树的所有子结点包括根节点，返回移除结点总数 */
     unsigned long removeAll();
-    unsigned long removeAllAt(RBTNode<T> *& t);
+    unsigned long removeAllAt(RBTNode<T> *& tr);
     
     /** 按顺序读取数组中的结点，层序构建完全二叉树，返回该树的根结点 */
     RBTNode<T> * levelBuild(RBTNode<T> *nodes[], const unsigned long n);
-    RBTNode<T> * levelBuild(RBTNode<T> *& t, RBTNode<T> *nodes[], const unsigned long n);
+    RBTNode<T> * levelBuild(RBTNode<T> *& tr, RBTNode<T> *nodes[], const unsigned long n);
     
     /** 二叉树转数组，层序遍历 */
     void levelTraversal(RBTNode<T> *ary[], unsigned long n);
@@ -81,6 +88,20 @@ public:
     unsigned long solveDepth(RBTNode<T> *t) const;
     
 private:
+    /** 双红修正 */
+    void doubleRedCorrection(RBTNode<T> *&t, RBTNode<T> *&pre);
+    /** 双黑修正 */
+    void doubleDarkCorrection(RBTNode<T> *p, RBTNode<T> *&rt);
+    /** 删除非空的叶子结点 */
+    RBTNode<T> *& deleteLeaf(RBTNode<T> *& t);
+    /** 双黑修正 (兄弟黑色) */
+    void doubleDarkCorrectionForBrotherBlack(RBTNode<T> *p, RBTNode<T> *&rt);
+    /** 双黑修正 (兄弟红色) */
+    void doubleDarkCorrectionForBrotherRed(RBTNode<T> *p, RBTNode<T> *&rt);
+
+    /** 父结点的子树状态 */
+    char subtreeStatus(RBTNode<T> *t);
+    
     /** LL树：对左左树做一次右旋（单旋转）*/
     RBTNode<T> * LL(RBTNode<T> *p, RBTNode<T> *& ref_t);
     RBTNode<T> * LL(RBTNode<T> *t);
@@ -108,12 +129,10 @@ private:
     RBTNode<T> *pre; // 当查找到结点时，pre为前驱结点，没找到为nullptr
 };
 
-/*
 template <class T>
 RBTree<T>::~RBTree() {
-//    if (size > 0) removeAllAt(this->root);
+    if (size > 0) removeAllAt(this->root);
 }
-*/
 
 template <class T>
 T RBTree<T>::find(T e) {
@@ -221,12 +240,6 @@ RBTNode<T> *& RBTree<T>::searchMinIn(RBTNode<T> *& t) {
     return searchMinIn(t->lc); // 尾递归
 }
 
-//template <class T>
-//void RBTree<T>::doubleDarkCorrection() {
-//
-//}
-//
-
 template <class T>
 void RBTree<T>::doubleRedCorrection(RBTNode<T> *&t, RBTNode<T> *&pre) {
     // 插入情景4.2 叔叔结点不存在或为黑结点 (双红修正，旋转+变色)
@@ -318,8 +331,8 @@ void RBTree<T>::doubleRedCorrection(RBTNode<T> *&t, RBTNode<T> *&pre) {
 //}
 
 template <class T>
-RBTNode<T> *& RBTree<T>::getParentLR(RBTNode<T> *p, RBTNode<T> *son) const {
-    return son == p->lc ? p->lc : p->rc; // 返回前驱结点的左儿子或右儿子的指针变量的引用
+RBTNode<T> *& RBTree<T>::getParentLR(RBTNode<T> *p, RBTNode<T> *lrc) const {
+    return lrc == p->lc ? p->lc : p->rc; // 返回前驱结点的左儿子或右儿子的指针变量的引用
 }
 
     
@@ -374,104 +387,256 @@ RBTNode<T>* RBTree<T>::insertIn(RBTNode<T> *node) {
     return res; // 返回插入的新结点地址
 }
 
-/*
-// 3.新结点的父结点和叔叔结点都是红色(双红)
-if (pre->color == RBTNode<T>::RED) { // 是否存在红色的父结点
-    // 新结点的父结点为红色时，必定存在黑色的祖父结点
-    RBTNode<T> *grand = pre->p;
-    // 如果父结点是祖父结点的左孩子
-    if (pre == grand->lc) {
-        // 尝试获取叔叔结点
-        RBTNode<T> *uncle = grand->rc;
-        // 如果存在红色的叔叔结点
-        if (uncle && uncle->color == RBTNode<T>::RED) {
-//                if (pre == grand->lc) { // 新结点的父亲为左子树
-//                    grand->color = RBTNode<T>::RED;
-//                    pre->color = RBTNode<T>::BLACK;
-//                    uncle->color = RBTNode<T>::BLACK;
-//
-//                } else { // > 新结点的父亲为右子树
-//                    // 3. 新结点的父结点和叔叔结点都是红色
-//                    grand->color = RBTNode<T>::RED;
-//                    pre->color = RBTNode<T>::BLACK;
-//                    uncle->color = RBTNode<T>::BLACK;
-//                }
-            
-            grand->color = RBTNode<T>::RED;
-            pre->color = RBTNode<T>::BLACK;
-            uncle->color = RBTNode<T>::BLACK;
-            
-            t = new RBTNode<T>(node, pre);
-            ++ this->size;
-            return t;
-            
-        } else { // 否则叔叔结点为NULL(按约定空结点为黑色)，或者叔叔非空是黑色
-            t = new RBTNode<T>(node, pre);
-            ++ this->size;
-            if (pre == grand->lc) { // 新结点为左子树 (双红)
-                RBTNode<T> *newGrand = LL(grand->p ,grand);
-                newGrand->color = RBTNode<T>::BLACK;
-                newGrand->lc->color = RBTNode<T>::RED;
-                newGrand->rc->color = RBTNode<T>::RED;
-                
-            } else { // > 新结点为右子树(双红)
-                RBTNode<T> *newGrand = LR(grand->p ,grand);
-                newGrand->color = RBTNode<T>::BLACK;
-                newGrand->lc->color = RBTNode<T>::RED;
-                newGrand->rc->color = RBTNode<T>::RED;
-            }
-            return t;
-        }
-    
-    } else { // > 否则父结点是祖父结点的右孩子
-        // 叔叔结点不存在或为黑结点，并且插入结点的父亲结点是祖父结点的右子结点
-    }
-    
-}
-*/
-
-/*
-
 template <class T>
-RBTNode<T> * RBTree<T>::insert(RBTNode<T> *son) {
-    RBTNode<T> *& t = search(son);
-    if (t) {
-        t->entry = son->entry;
-    } else {
-        t = new RBTNode<T>(son);
-        ++ this->size;
-    }
-    return t;
+bool RBTree<T>::remove(T e) {
+    RBTNode<T> *tar = new RBTNode<T>(e);
+    bool isok = removeAt(this->root, tar) != nullptr;
+    delete tar;
+    return isok;
 }
 
 template <class T>
-bool RBTree<T>::remove(RBTNode<T> *son) {
-    RBTNode<T> *& t = search(son);
-    if (!t) return false;
-    removeAt(t);
+RBTNode<T> * RBTree<T>::removeAt(RBTNode<T> *& tree, RBTNode<T> *node) {
+    // 找出对应Key的结点，并拿到指针引用
+    RBTNode<T> *& t = search(tree, node);
+    if (!t) return nullptr; // 没找到结点，删除失败
+    // 到这找到了
+    RBTNode<T> * const res = t;
+    deleteAt(t); // 删除结点并双黑修正
     -- this->size;
-    return true;
+    return res; // 返回已删除结点的地址
 }
 
 template <class T>
-void RBTree<T>::removeAt(RBTNode<T> *& t) {
+void RBTree<T>::deleteIn(RBTNode<T> *& tr) {
+    RBTNode<T> *dt = tr; // 先取出即将删除的结点的地址，必须传址
+    
+    // 如果sr = 0 或 sr = 2; 就表示，pr:拿到已删除结点的父亲(指针引用)，没父亲时为空（nullptr）;
+    // 如果sr = 1; 就表示，pr:拿到了替换结点(删除结点的替换结点)
+    RBTNode<T> *& rt = deleteAt(tr);
+    
+    // (sr = 2; 删除的结点既有左子树又有右子树) (sr = 1; 删除的结点只有左子树或右子树) (sr = 0; 删除叶子 (删除的结点无子树))
+    char sr = subtreeStatus(dt); // t:准备删除的结点 sr:准备删除的结点的子树个数
+    switch (sr) {
+        // 删除结点有左子树或右子树
+        case 1: {
+            // 替换结点是红色
+            if (rt->color == RBTNode<T>::RED) {
+                rt->color = dt->color; // 设成红色就平衡了，直接结束
+            } else { // 替换结点是黑色，其父必定存在且是黑色 if (rt->color != RBTNode<T>::BLACK)
+                if (rt == rt->p->lc) { // L 替换结点是其父亲的左孩子
+                    if (rt->p->rc) { // 替换结点的右兄弟存在
+                        if (rt->p->rc->color == RBTNode<T>::BLACK) { // 替换结点的右兄弟黑色
+                            // 双黑修正（右兄弟黑色）: 替换结点的右兄弟存在且是黑色
+                            doubleDarkCorrectionForBrotherBlack(rt->p, rt);
+                        } else { // 替换结点的右兄弟红色
+                            // 双黑修正（右兄弟红色）: 替换结点的右兄弟存在且是红色
+                            doubleDarkCorrectionForBrotherRed(rt->p, rt);
+                        }
+                    } else { // 不存在替换结点的右兄弟（nullptr）
+                        
+                    }
+                    
+                } else if (rt == rt->p->rc) { // R 替换结点是其父亲的右孩子
+                    if (rt->p->lc) { // 替换结点的左兄弟存在
+                        if (rt->p->lc->color == RBTNode<T>::BLACK) { // 替换结点的左兄弟黑色
+                            // 双黑修正（左兄弟黑色）: 替换结点的左兄弟存在且是黑色
+                            doubleDarkCorrectionForBrotherBlack(rt->p ,rt);
+                        } else { // 替换结点的左兄弟红色
+                            // 双黑修正（左兄弟红色）: 替换结点的左兄弟存在且是红色
+                            doubleDarkCorrectionForBrotherRed(rt->p, rt);
+                        }
+                    } else { // 不存在替换结点的左兄弟（nullptr）
+                        
+                    }
+                }
+                
+            }
+            break;
+        }
+            
+        // 删除叶子结点: 删除的结点既有左子树又有右子树(转变成了删除叶子的过程)
+        case 0 : case 2: {
+            
+            if (dt->color == RBTNode<T>::BLACK) { // 黑色
+                
+            } else { // 红色
+                // 不需要做旋转变色的修正
+            }
+            break;
+        }
+        
+        default:
+            break;
+    }
+
+}
+
+template <class T>
+char RBTree<T>::subtreeStatus(RBTNode<T> *t) {
     if (t->lc && t->rc) {
-        RBTNode<T> *& min = searchMinIn(t->rc);
-        t = min; // t->entry = min->entry;
-        delete min;
-        min = nullptr;
+        return 2; // 删除的结点既有左子树又有右子树
+    } else if (t->lc || t->rc) {
+        return 1; // 删除的结点只有左子树或右子树
+    } else {
+        return 0; // 删除叶子 (删除的结点无子树)
+    }
+}
+
+template <class T>
+RBTNode<T> *& RBTree<T>::deleteAt(RBTNode<T> *& t) {
+    if (t->lc && t->rc) {
+        RBTNode<T> *& min = searchMinIn(t->rc); // 在右子树找最小的结点，必定是最外层叶子结点(非空)
+        t = min; //  只改变数据，结点结构与颜色不变（t->entry = min->entry）;
+        
+        return deleteLeaf(min); // 转变成了删除叶子结点的过程
         
     } else if (t->lc || t->rc) {
-        RBTNode<T> *& son = t->lc ? t->lc : t->rc;
+        RBTNode<T> * son = t->lc ? t->lc : t->rc;
+        son->p = t->p; // t->p为空时，说明t是树根
         delete t;
         t = son;
+        return t;
         
     } else {
-        delete t;
-        t = nullptr;
+        
+        return deleteLeaf(t); // 删除叶子结点的过程
     }
 }
-*/
+
+template <class T>
+RBTNode<T> *& RBTree<T>::deleteLeaf(RBTNode<T> *& t) {
+    if (t->p && t->p->p) { // 有父亲与祖父
+        RBTNode<T> *& p_ref = getParentLR(t->p->p, t->p); // 获取当前结点的父亲指针变量的引用
+        delete t; t = nullptr;
+        return p_ref; // 返回父亲（指针变量的引用）
+        
+    } else if (t->p && !t->p->p) { // 有父亲没祖父(说明父亲是根结点)
+        delete t; t = nullptr;
+        return this->root; // 返回父亲(树根)，父亲指针变量的引用
+        
+    } else { // 没父亲, 说明删除的结点是树根
+        delete t; t = nullptr;
+        return t;   // 返回树根指针变量的nullptr引用
+    }
+}
+
+template <class T>
+void RBTree<T>::doubleDarkCorrection(RBTNode<T> *p, RBTNode<T> *&rt) {
+    doubleDarkCorrectionForBrotherBlack(p, rt);
+    doubleDarkCorrectionForBrotherRed(p, rt);
+}
+    
+template <class T>
+void RBTree<T>::doubleDarkCorrectionForBrotherBlack(RBTNode<T> *p, RBTNode<T> *&rt)
+{
+    // 右兄弟黑色：替换结点的右兄弟存在且是黑色
+    if (p->lc && p->rc && p->rc->color == RBTNode<T>::BLACK) {
+        // 替换结点的右兄弟的右孩子是红色，左孩子任意颜色
+        if (p->rc->rc && p->rc->rc->color == RBTNode<T>::RED) {
+            /// 先变色
+            p->rc->color = p->color;
+            p = RBTNode<T>::BLACK;
+            p->rc->rc->color = RBTNode<T>::BLACK;
+            /// 再旋转
+            if (p->p) { // 如果替换结点的祖父是存在的
+                // getParentLR(): 取父亲作为lc或rc的引用（传指针变量的引用）
+                RR(p->p, getParentLR(p->p, p)); // 对parent(右右树)做一次左旋
+            } else { // 获取祖父结点空了，说明父亲是树根
+                RR(nullptr, this->root); // 对parent(右右树)做一次左旋
+            }
+        } else if (p->rc->lc && p->rc->lc->color == RBTNode<T>::RED) { // 右兄弟的左孩子是红色，右孩子任意颜色
+            
+            
+        } else if (p->rc->lc && p->rc->rc && p->rc->lc->color == RBTNode<T>::RED && p->rc->rc->color == RBTNode<T>::BLACK) { // 右兄弟的左孩子红色，右孩子黑色
+            /// 先变色
+            p->rc->color = RBTNode<T>::RED;
+            p->rc->lc->color = RBTNode<T>::BLACK;
+            /// 再旋转
+            LL(p, p->rc); // 对S右兄弟(左左树)做一次右旋
+            
+        } else if (p->rc->lc && p->rc->rc && p->rc->lc->color == RBTNode<T>::BLACK && p->rc->rc->color == RBTNode<T>::BLACK) { // 右兄弟的两孩子都黑色
+            /// 先变色
+            p->rc->color = RBTNode<T>::RED;
+//            将S设为红色
+//            把P作为新的替换结点
+//            重新进行删除结点情景处理
+            // 后续的平衡工作交给父辈，重新进行删除结点情景处理
+        } else { // if (!lc&&!rc) 兄弟没有孩子
+            
+        }
+        return; // 右兄弟黑色：替换结点的右兄弟存在且是黑色
+    }
+    
+    // 左兄弟黑色：替换结点的左兄弟存在且是黑色
+    if (p->lc && p->rc && p->lc->color == RBTNode<T>::BLACK) {
+        RBTNode<T> *& lb = p->rc; // 左兄弟
+        // 替换结点的右兄弟的左孩子是红色，右孩子任意颜色
+        if (lb->lc && lb->lc->color == RBTNode<T>::RED) {
+            /// 先变色
+            lb->color = p->color;
+            p = RBTNode<T>::BLACK;
+            lb->lc->color = RBTNode<T>::BLACK;
+            /// 再旋转
+            if (p->p) { // 如果替换结点的祖父是存在的
+                LL(p->p, getParentLR(p->p, p));
+            } else { // 获取祖父结点空了，说明父亲是树根
+                LL(nullptr, this->root);
+            }
+        } else if (lb->rc && lb->rc->color == RBTNode<T>::RED) { // 右兄弟的右孩子是红色，左孩子任意颜色
+            
+            
+        } else if (lb->lc && lb->rc && lb->lc->color == RBTNode<T>::BLACK && lb->rc->color == RBTNode<T>::RED) { // 左兄弟的左孩子黑色，右孩子红色
+            /// 先变色
+            lb->color = RBTNode<T>::RED;
+            lb->rc->color = RBTNode<T>::BLACK;
+            /// 再旋转
+            RR(p, lb); // 对左兄弟做一次左旋
+            
+        } else if (lb->lc && lb->rc && lb->lc->color == RBTNode<T>::BLACK && lb->rc->color == RBTNode<T>::BLACK) { // 右兄弟的两孩子都黑色
+            /// 先变色
+            lb->color = RBTNode<T>::RED;
+        //            将S设为红色
+        //            把P作为新的替换结点
+        //            重新进行删除结点情景处理
+            // 后续的平衡工作交给父辈，重新进行删除结点情景处理
+        } else { // if (!lc&&!rc) 兄弟没有孩子
+            
+        }
+        return; // 左兄弟黑色：替换结点的左兄弟存在且是黑色
+    }
+}
+
+template <class T>
+void RBTree<T>::doubleDarkCorrectionForBrotherRed(RBTNode<T> *p, RBTNode<T> *&rt) {
+    // 右兄弟红色：替换结点的右兄弟存在且是红色
+    if (p->rc && p->lc && p->rc->color == RBTNode<T>::RED) {
+        rt->p = RBTNode<T>::RED;
+        rt->p->rc->color = RBTNode<T>::BLACK;
+        
+        if (rt->p->p) { // 如果替换结点的祖父是存在的
+            // getParentLR(): 取父亲作为lc或rc的引用（传指针变量的引用）
+            RR(rt->p->p, getParentLR(rt->p->p, rt->p)); // 对parent(右右树)做一次左旋
+        } else { // 获取祖父结点空了，说明父亲是树根
+            // getParentLR(): 取父亲作为lc或rc的引用（传指针变量的引用）
+            RR(nullptr, this->root); // 对parent(右右树)做一次左旋
+        }
+    } else {
+        // 左兄弟红色：替换结点的左兄弟存在且是红色
+        if (p->lc && p->rc && p->lc->color == RBTNode<T>::RED) {
+            rt->p = RBTNode<T>::RED;
+            rt->p->lc->color = RBTNode<T>::BLACK;
+            
+            if (rt->p->p) { // 如果替换结点的祖父是存在的
+                // getParentLR(): 取父亲作为lc或rc的引用（传指针变量的引用）
+                LL(rt->p->p, getParentLR(rt->p->p, rt->p)); // 对parent(左左树)做一次右旋
+            } else { // 获取祖父结点空了，说明父亲是树根
+                // getParentLR(): 取父亲作为lc或rc的引用（传指针变量的引用）
+                LL(nullptr, this->root); // 对parent(左左树)做一次右旋
+            }
+        }
+    }
+}
 
 template <class T>
 unsigned long RBTree<T>::removeAll() {
