@@ -9,59 +9,93 @@
 #define Linklist_hpp
 
 #include "LNode.hpp"
+#include <string>
 
-template <class T, class K>
+template <class K, class V>
 class Linklist {
 public:
-    class iterator {
-    public:
-        iterator(Linklist * const iter);
-        bool operator = (Linklist * const iter);
-        iterator *begin();
-        iterator *end();
-        iterator operator *(Linklist * const iter);
-        iterator *operator ++();
-        iterator *operator --();
-        bool operator != (Linklist * const iter);
-        bool operator == (Linklist * const iter);
-    private:
-        LNode<T> *p;
-    };
+    Linklist();
     
-    inline bool remove(const K &key);
+    unsigned long hash; // 发生冲突的唯一散列值 hash = hash(key)
     
-    inline bool update(const T &entry);
+    bool insert(const V &value, const K &key);
     
-    inline T search(const K &key) const;
+    bool remove(const K &key);
     
-    inline LNode<T>* insert(const T &entry);
+    bool update(const Entry<K, V> &e);
     
-    inline LNode<T>* insert(LNode<T> *& prev, const T &entry);
-    
-    inline LNode<T> * search(const K &key, const LNode<T> *& prev) const;
+    V search(const K &key) const;
     
     inline unsigned long length();
     
     bool empty() const;
     
+    void removeAll();
+    
+    // iterator class declaration
+    class iterator {
+    public:
+        iterator();
+        iterator(LNode<K, V> * const ptr);
+        iterator& operator = (LNode<K, V> * const ptr);
+        
+        Entry<K, V> & operator * ();
+        iterator & operator ++();
+        bool operator != (LNode<K, V> * const ptr);
+    private:
+        LNode<K, V> *p;
+    };
+    
+    LNode<K, V> * begin() const;
+    LNode<K, V> * end() const;
+    
 private:
-    LNode<T> * _head;
+    
+    LNode<K, V> * front_insert(const V &value, const K &key);
+    
+    LNode<K, V> * insertIn(LNode<K, V> *& prev, const Entry<K, V> &e);
+    
+    LNode<K, V> * searchIn(const K &key, LNode<K, V> *& prev) const;
+    
+    void removeAll(LNode<K, V> *& node);
+    
+    LNode<K, V> * _head;
     
     unsigned long _size;
 };
 
-template <class T, class K>
-inline LNode<T> * Linklist<T, K>::insert(const T &e) {
-    LNode<T> *node = new LNode<T>();
-    node->entry = e;
+template <class K, class V>
+Linklist<K, V>::Linklist() : _head(new LNode<K, V>()), _size(0) { }
+
+template <class K, class V>
+bool Linklist<K, V>::insert(const V &value, const K &key) {
+    LNode<K, V> *prev;
+    LNode<K, V> *res = searchIn(key, prev);
+    // 找到了就直接改值
+    if (res) {
+        res->entry->value = value;
+        return true; // 更改：true 插入：false
+    }
+    // 没找到就在链表最前面插入值
+    front_insert(value, key);
+    
+    return false; // 更改：true 插入：false
+}
+
+template <class K, class V>
+LNode<K, V> * Linklist<K, V>::front_insert(const V &value, const K &key) {
+    LNode<K, V> *node = new LNode<K, V>();
+    node->entry = new Entry<K, V>(key, value);
+    
+    node->next = _head->next;
     _head->next = node;
     ++ _size;
     return node;
 }
 
-template <class T, class K>
-inline LNode<T>* Linklist<T, K>::insert(LNode<T> *& prev, const T &e) {
-    LNode<T> *node = new LNode<T>();
+template <class K, class V>
+LNode<K, V>* Linklist<K, V>::insertIn(LNode<K, V> *& prev, const Entry<K, V> &e) {
+    LNode<K, V> *node = new LNode<K, V>();
     node->entry = e;
     node->next = prev->next;
     prev->next = node;
@@ -69,10 +103,10 @@ inline LNode<T>* Linklist<T, K>::insert(LNode<T> *& prev, const T &e) {
     return node;
 }
 
-template <class T, class K>
-inline bool Linklist<T, K>::remove(const K &key) {
-    LNode<T> *prev = nullptr;
-    LNode<T> *res = search(key, prev);
+template <class K, class V>
+bool Linklist<K, V>::remove(const K &key) {
+    LNode<K, V> *prev = nullptr;
+    LNode<K, V> *res = searchIn(key, prev);
     if (!res) return false;
     
     prev->next = res->next;
@@ -81,57 +115,101 @@ inline bool Linklist<T, K>::remove(const K &key) {
     return true;
 }
 
-template <class T, class K>
-inline bool Linklist<T, K>::update(const T &e) {
-    LNode<T> *prev = nullptr;
-    LNode<T> *res = search(e.key, prev);
+template <class K, class V>
+bool Linklist<K, V>::update(const Entry<K, V> &e) {
+    LNode<K, V> *prev = nullptr;
+    LNode<K, V> *res = search(e.key, prev);
     if (!res) return false;
     
     res->entry = e;
     return true;
 }
 
-template <class T, class K>
-inline T Linklist<T, K>::search(const K &key) const {
-    LNode<T> *next = _head->next;
-    while ((next = next->next) && next->entry->key != key) { };
-    return next->entry;
+template <class K, class V>
+V Linklist<K, V>::search(const K &key) const {
+    LNode<K, V> *next = _head->next;
+    while (next && next->entry->key != key) {
+        next = next->next;
+    };
+    return next ? next->entry->value : NULL;
 }
 
-template <class T, class K>
-inline LNode<T> * Linklist<T, K>::search(const K &key, const LNode<T> *& prev) const {
+template <class K, class V>
+LNode<K, V> * Linklist<K, V>::searchIn(const K &key, LNode<K, V> *& prev) const {
     prev = _head;
-    LNode<T> *next = _head->next;
-    while ((next = next->next) && next->entry->key != key) {
+    LNode<K, V> *next = _head->next;
+    while (next && next->entry->key != key) {
         prev = next;
+        next = next->next;
     };
+    
     return next;
 }
 
-template <class T, class K>
-unsigned long Linklist<T, K>::length() {
+template <class K, class V>
+inline unsigned long Linklist<K, V>::length() {
     return _size;
 }
 
-template <class T, class K>
-bool Linklist<T, K>::empty() const {
+template <class K, class V>
+inline bool Linklist<K, V>::empty() const {
     return _head->next == nullptr;
+}
+
+template <class K, class V>
+void Linklist<K, V>::removeAll() {
+    removeAll(_head);
+}
+
+template <class K, class V>
+void Linklist<K, V>::removeAll(LNode<K, V> *& node) {
+    if (! node->next) {
+        delete node; node = nullptr;
+        -- _size;
+        return;
+    }
+    removeAll(node->next); // 尾递归
+}
+
+template <class K, class V>
+LNode<K, V> * Linklist<K, V>::begin() const  {
+    return _head->next;
+}
+
+template <class K, class V>
+LNode<K, V> * Linklist<K, V>::end() const {
+    return nullptr;
 }
 
 #pragma mark - iterator class IMP
 
-template <class T, class K>
-Linklist<T, K>::iterator Linklist<T, K>::iterator::begin() {
-    Linklist<T, K>::iterator *iter = Linklist<T, K>::iterator(_head->next);
-    return iter;
+template <class K, class V>
+Linklist<K, V>::iterator::iterator() : p(nullptr) { }
+
+template <class K, class V>
+Linklist<K, V>::iterator::iterator(LNode<K, V> * const ptr) : p(ptr) { }
+
+template <class K, class V>
+typename Linklist<K, V>::iterator & Linklist<K, V>::iterator::operator = (LNode<K, V> * const ptr) {
+    this->p = ptr;
+    return this;
 }
 
+template <class K, class V>
+typename Linklist<K, V>::iterator & Linklist<K, V>::iterator::operator ++() {
+    if (this->p) this->p = this->p->next;
+    return this;
+}
 
-iterator *end();
-bool operator = (Linklist * const iter);
-iterator operator * (Linklist * const iter);
-iterator *operator ++();
-iterator *operator --();
-bool operator != (Linklist * const iter);
+template <class K, class V>
+bool Linklist<K, V>::iterator::operator != (LNode<K, V> * const ptr) {
+    return this->p != ptr;
+}
+
+template <class K, class V>
+Entry<K, V> & Linklist<K, V>::iterator::operator * () {
+    if (! this->p) return nullptr;
+    return this->p->entry;
+}
 
 #endif /* Linklist_hpp */
