@@ -16,6 +16,8 @@ class Linklist {
 public:
     Linklist();
     
+    ~Linklist();
+    
     unsigned long hash; // 发生冲突的唯一散列值 hash = hash(key)
     
     bool insert(const V &value, const K &key);
@@ -66,6 +68,11 @@ private:
 
 template <class K, class V>
 Linklist<K, V>::Linklist() : _head(new LNode<K, V>()), _size(0) { }
+
+template <class K, class V>
+Linklist<K, V>::~Linklist() {
+    removeAll();
+}
 
 template <class K, class V>
 bool Linklist<K, V>::insert(const V &value, const K &key) {
@@ -158,17 +165,18 @@ inline bool Linklist<K, V>::empty() const {
 
 template <class K, class V>
 void Linklist<K, V>::removeAll() {
-    removeAll(_head);
+    removeAll(_head->next);
 }
 
 template <class K, class V>
 void Linklist<K, V>::removeAll(LNode<K, V> *& node) {
-    if (! node->next) {
-        delete node; node = nullptr;
-        -- _size;
-        return;
-    }
-    removeAll(node->next); // 尾递归
+    if (! node) return;
+    
+    removeAll(node->next);
+    
+    delete node;
+    node = nullptr;
+    -- _size;
 }
 
 template <class K, class V>

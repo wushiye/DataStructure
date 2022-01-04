@@ -15,7 +15,7 @@ template <class K, class V>
 class Hashtable {
 public:
     /** 默认构造函数：带默认参数(容量)  ，加载因子(0.75) */
-    Hashtable(const unsigned long capacity = 5);
+    Hashtable(const unsigned long capacity = 2);
     
     ~Hashtable(); /** 析构函数 */
     
@@ -29,6 +29,8 @@ public:
     bool removeForKey(const K &key);
     
     inline unsigned long length();
+    
+    void removeAll();
     
 private:
     /** 容量 */
@@ -59,13 +61,7 @@ Hashtable<K, V>::Hashtable(const unsigned long n) : _capacity(n), _loadFactor(0.
 
 template <class K, class V>
 Hashtable<K, V>::~Hashtable() {
-    for (unsigned long i = 0; i != _capacity; i++) {
-        Linklist<K, V> *& link = _table[i];
-        if (link) {
-            link->removeAll(); 
-            delete link; link = nullptr;
-        }
-    }
+    removeAll();
     delete [] _table; _table = nullptr;
 }
 
@@ -156,6 +152,15 @@ void Hashtable<K, V>::rehash(const unsigned long n, const float lf) {
     // 更新容量与加载因子
     _capacity = n;
     _loadFactor = lf <= 0 ? 0.75 : lf;
+}
+
+template <class K, class V>
+void Hashtable<K, V>::removeAll() {
+    for (unsigned long i = 0; i != _capacity; i++) {
+        Linklist<K, V> *& link = _table[i];
+        if (link) delete link; link = nullptr;
+    }
+    _count = 0;
 }
 
 template <class K, class V>

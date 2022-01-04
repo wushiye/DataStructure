@@ -11,12 +11,85 @@
 //#include <list>
 
 using std::cout;
+using std::string;
 
-using std::endl;
+void testADTHS() {
+    Hashtable<std::string, ADTObject *> ht;
+    std::cout << "ht.length() = " << ht.length() << "\n\n";
+    
+    std::cout << "ht.valueForKey(\"key_one\") = " << ht.valueForKey("key_one") << "\n\n";
+    
+    {
+        ADTObject *obj = new ADTObject;
+        obj->level = 1;
+        obj->name = new string("对象1");
+        ht.setValueForKey(obj, *obj->name);
+        ADTObject *res = ht.valueForKey(*obj->name);
+        std::cout << "ht.valueForKey(\"对象1\"): \n" << *res->name << " : " << res->level << "\n\n";
+    }
+    
+    {
+        ADTObject *obj = new ADTObject;
+        obj->level = 2;
+        obj->name = new string("对象2");
+        ht.setValueForKey(obj, *obj->name);
+        ADTObject *res = ht.valueForKey(*obj->name);
+        std::cout << "ht.valueForKey(\"对象2\"): \n" << *res->name << " : " << res->level << "\n\n";
+    }
+    
+    {
+        ADTObject *obj = new ADTObject;
+        obj->level = 2;
+        obj->name = new string("对象2");
+        ht.setValueForKey(obj, *obj->name);
+        ADTObject *res = ht.valueForKey(*obj->name);
+        std::cout << "ht.valueForKey(\"对象2\"): \n" << *res->name << " : " << res->level << "\n\n";
+    }
+    
+    {
+        ADTObject *obj = new ADTObject;
+        obj->level = 3;
+        obj->name = new string("对象3");
+        ht.setValueForKey(obj, *obj->name);
+        ADTObject *res = ht.valueForKey(*obj->name);
+        std::cout << "ht.valueForKey(\"对象3\"): \n" << *res->name << " : " << res->level << "\n\n";
+    }
+    
+    {
+        ADTObject *obj = new ADTObject;
+        obj->level = 4;
+        obj->name = new string("对象4");
+        ht.setValueForKey(obj, *obj->name);
+        ADTObject *res = ht.valueForKey(*obj->name);
+        std::cout << "ht.valueForKey(\"对象4\"): \n" << *res->name << " : " << res->level << "\n\n";
+    }
+    
+    {
+        ADTObject *obj = new ADTObject;
+        obj->level = 4;
+        obj->name = new string("对象4");
+        ht.setValueForKey(obj, *obj->name);
+        ADTObject *res = ht.valueForKey(*obj->name);
+        std::cout << "ht.valueForKey(\"对象4\"): \n" << *res->name << " : " << res->level << "\n\n";
+    }
+    
+    ht.removeForKey("对象1");
+    std::cout << "删除后：ht.valueForKey(\"对象1\") = " << ht.valueForKey("对象1") << "\n\n";
+    std::cout << "ht.length() = " << ht.length() << "\n\n";
+    
+    {
+        ADTObject *obj = new ADTObject;
+        obj->level = 1;
+        obj->name = new string("对象1");
+        ht.setValueForKey(obj, *obj->name);
+        ADTObject *res = ht.valueForKey(*obj->name);
+        std::cout << "ht.valueForKey(\"对象1\"): \n" << *res->name << " : " << res->level << "\n\n";
+    }
+    
+    std::cout << "ht.length() = " << ht.length() << "\n\n";
+}
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n\n";
+void testIntHS() {
     Hashtable<std::string, unsigned long> ht(10);
     
 //    unsigned long n = 1000;
@@ -24,11 +97,11 @@ int main(int argc, const char * argv[]) {
 ////        unsigned long val = random() % n;
 //        unsigned long val = i;
 //        std::string key = "key_" + std::to_string(val);
-//        
+//
 //        ht.setValueForKey(val, key);
 //    }
     
-    std::cout << "增加后：ht.valueForKey(\"key_100\") = " << ht.valueForKey("key_100\0") << "\n\n";
+    std::cout << "ht.valueForKey(\"key_100\") = " << ht.valueForKey("key_100\0") << "\n\n";
     std::cout << "ht.length() = " << ht.length() << "\n\n";
     
     std::cout << "ht.length() = " << ht.length() << "\n\n";
@@ -103,11 +176,12 @@ int main(int argc, const char * argv[]) {
     ht.removeForKey("key_101");
     std::cout << "ht.length() = " << ht.length() << "\n\n";
     
+    std::cout << "ht.removeAll() = " << "\n\n";
+    ht.removeAll();
+    
     ht.removeForKey("key_101");
     std::cout << "ht.length() = " << ht.length() << "\n\n";
     
-    //    other();
-    return 0;
 }
 
 void other() {
@@ -145,6 +219,15 @@ void other() {
         unsigned long fa = 0.75 * 10;
         unsigned long fb = 10 * 0.75;
         std::cout << fa << ' ' << fb;
-        
-        std::cout << endl;
+}
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout << "Hello, World!\n\n";
+    
+    testADTHS();
+    
+//    testIntHS();
+    //    other();
+    return 0;
 }
